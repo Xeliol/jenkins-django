@@ -1,35 +1,47 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:latest'
-            args '-u root'
-        }
+    agent none
+    environment {
+        IMAGE_NAME = 'xeliol/django_demo'
     }
     stages {
         stage("deps") {
-        steps {
-            sh 'pip install -r requirements.txt'
-
-        }
+            agent {
+        	docker {
+            	    image 'python:latest'
+            	    args '-u root -v ${WORKSPACE}/pipenv:/root/.local'
+        	}
+    	    }	
+            steps {
+                sh 'pip install --user -r requirements.txt'
+            } 
         }
         stage("test") {
-        steps {
-            sh 'python -m coverage run manage.py test'
-
-        }
+            agent {
+        	docker {
+            	    image 'python:latest'
+            	    args '-u root -v ${WORKSPACE}/pipenv:/root/.local'
+        	}
+    	    }
+            steps {
+                sh 'python -m coverage run manage.py test'
+            }
         }
         stage("report") {
-        steps {
-            sh 'python -m coverage report'
-	    sh 'python -m coverage xml'
-	    sh 'python -m coverage html'
+            agent {
+        	docker {
+            	    image 'python:latest'
+            	    args '-u root -v ${WORKSPACE}/pipenv:/root/.local'
+        	}
+    	    }
+            steps {
+                sh 'python -m coverage report'
+            }
         }
+        stage("build") {
+            agent any
+            steps {
+                sh 'docker build . -t ${IMAGE_NAME}:${GIT_COMMIT}'
+            }
         }
-    }
-    post{
-    	always{
-    	    archiveArtifacts 'htmlcov/*'
-    	    cobertura coberturaReportFile: 'coverage.xml'
-    	}
     }
 }
