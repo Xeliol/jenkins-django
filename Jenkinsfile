@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        IMAGE_NAME = 'Xeliol/django_demo'
+        IMAGE_NAME = 'xeliol/django_demo'
     }
     stages {
         stage("deps") {
