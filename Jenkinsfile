@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        IMAGE_NAME = 'xeliol/django_demo'
+        IMAGE_NAME = 'Xeliol/django_demo'
     }
     stages {
         stage("deps") {
@@ -46,7 +46,7 @@ pipeline {
         stage("push") {
             agent any
             steps {
-                withCredentials([usernamePassword(credentialsId: 'iorp_docker_hub',
+                withCredentials([usernamePassword(credentialsId: 'Docker_Marinin',
                 usernameVariable: 'HUB_USERNAME', passwordVariable: 'HUB_PASSWORD')]) {
                     sh 'docker login -u ${HUB_USERNAME} -p ${HUB_PASSWORD}'
                     sh 'docker push ${IMAGE_NAME}:${GIT_COMMIT}'
