@@ -1,0 +1,9 @@
+services:
+
+    backend:
+
+        image: iorp/django_demo:latest
+
+        ports:
+
+            - 8082:80

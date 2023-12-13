@@ -1,5 +1,0 @@
-services:
-	backend:
-		image: xeliol/django_demo:latest
-		ports:
-			- 8082:80
