@@ -84,8 +84,8 @@ pipeline {
         			]
         		) 
         		{
-		    		sh 'scp -i ${KEY_FILE} marinin.prod.mshp-devops.conf ${USERNAME}@${PROD_IP}:nginx'
-		    		sh 'ssh -i ${KEY_FILE} ${USERNAME}@${PROD_IP} sudo systemctl reload nginx'
+		    		sh 'scp -i ${SERVER_KEY} marinin.prod.mshp-devops.conf ${SERVER_USERNAME}@${production_key}:nginx'
+		    		sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${production_key} sudo systemctl reload nginx'
 		    	}
         	}
         }
