@@ -77,7 +77,8 @@ pipeline {
         stage("config proxy") {
         	agent any
         	steps {
-        		sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${SERVER_IP} sudo systemctl reload nginx'
+        		sh 'scp -i ${KEY_FILE} paramonov.prod.mshp-devops.conf ${USERNAME}@${PROD_IP}:nginx'
+        		sh 'ssh -i ${KEY_FILE} ${USERNAME}@${PROD_IP} sudo systemctl reload nginx'
         	}
         }
     }
