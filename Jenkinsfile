@@ -77,7 +77,7 @@ pipeline {
         stage("config proxy") {
         	agent any
         	steps {
-        		sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${SERVER_IP} sudo systemctl reload nginx
+        		sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${SERVER_IP} sudo systemctl reload nginx'
         	}
         }
     }
