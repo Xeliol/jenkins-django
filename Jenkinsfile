@@ -85,6 +85,9 @@ pipeline {
         		) 
         		{
 		    		sh 'scp -i ${SERVER_KEY} marinin.prod.mshp-devops.conf ${SERVER_USERNAME}@${SERVER_IP}:nginx'
+		    		
+                    sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${SERVER_IP} sudo certbot --nginx --non-interactive --agree-tos -m pluh_pluh_pluh@gmail.com -d marinin.prod.mshp-devops.conf'
+                    
 		    		sh 'ssh -i ${SERVER_KEY} ${SERVER_USERNAME}@${SERVER_IP} sudo systemctl reload nginx'
 		    	}
         	}
