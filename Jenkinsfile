@@ -28,7 +28,7 @@ pipeline {
                 sh 'python -m coverage run manage.py test'
             }
         }
-        stage("report") {
+         stage("report") {
             agent {
                 docker {
                     image 'python:latest'
@@ -37,6 +37,9 @@ pipeline {
             }
             steps {
                 sh 'python -m coverage report'
+                sh 'python -m coverage xml'
+                sh 'python -m coverage html'
+                archiveArtifacts 'htmlcov/*'
             }
         }
         stage("build") {
